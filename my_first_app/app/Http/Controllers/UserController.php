@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -15,8 +16,18 @@ class UserController extends Controller
                 'password' => 'required|min:6|max:20'
             ]
 
+
+
             
         );
+        
+
+        $incomingData['password'] = bcrypt($incomingData['password']);
+        User::create($incomingData);
+
+
+
+
         return view('sagiri', compact('incomingData'));
     }
 }
