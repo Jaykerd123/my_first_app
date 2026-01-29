@@ -39,4 +39,24 @@ class UserController extends Controller
         $request->session()->regenerateToken();
         return redirect('/');
     }
+
+    //  login
+    public function login(Request $dataFromHome)
+    {
+        $incomingData = $dataFromHome->validate(
+            [
+                'loginusername' => 'required',
+                'loginpassword' => 'required',
+            ]
+        );
+
+        if (Auth::attempt(['username' => $incomingData['loginusername'], 'password' => $incomingData['loginpassword']])) {
+            $dataFromHome->session()->regenerate();
+            return redirect('/');
+        }
+
+        return back()->withErrors([
+            'loginError' => 'The provided credentials do not match our records.',
+        ])->onlyInput('loginusername');
+    }
 }

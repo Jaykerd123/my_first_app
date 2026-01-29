@@ -16,10 +16,28 @@
         body {
             min-height: 100vh;
             background: linear-gradient(135deg, #0f0f1a, #1b1b2f);
-            display: flex;
-            align-items: center;
-            justify-content: center;
             color: #fff;
+
+            /* allow vertical spacing */
+            display: flex;
+            justify-content: center;
+            padding: 4rem 1.5rem;
+        }
+
+        /* wrapper for spacing top & bottom */
+        .page-wrapper {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* stack register + login vertically */
+        .auth-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+            width: 100%;
+            max-width: 900px;
         }
 
         .register-container {
@@ -30,7 +48,6 @@
             backdrop-filter: blur(12px);
             border-radius: 18px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-            max-width: 900px;
             width: 100%;
         }
 
@@ -95,23 +112,10 @@
             box-shadow: 0 10px 30px rgba(255, 105, 180, 0.4);
         }
 
-        @media (max-width: 768px) {
-            .register-container {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .image-box {
-                justify-content: center;
-            }
-        }
-        
-
-        /*  separate css */
+        /* logged-in state */
         .auth-container {
-            min-height: 100vh;
+            width: 100%;
             display: flex;
-            align-items: center;
             justify-content: center;
         }
 
@@ -125,7 +129,6 @@
             backdrop-filter: blur(12px);
             border-radius: 18px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-            color: #fff;
         }
 
         .auth-text {
@@ -175,74 +178,103 @@
         }
 
         @media (max-width: 768px) {
+            .register-container,
             .auth-card {
                 flex-direction: column;
                 text-align: center;
             }
 
+            .image-box,
             .auth-image {
                 justify-content: center;
             }
         }
-
     </style>
 </head>
+
 <body>
 
-    @auth
-    <div class="auth-container">
-        <div class="auth-card">
-            <div class="auth-text">
-                <h2>Welcome back ✨</h2>
-                <p>You are logged in &gt;_&lt;</p>
+@auth
+    <div class="page-wrapper">
+        <div class="auth-container">
+            <div class="auth-card">
+                <div class="auth-text">
+                    <h2>Welcome back ✨</h2>
+                    <p>You are logged in &gt;_&lt;</p>
 
-                <form action="/logout" method="POST">
-                    @csrf
-                    <button class="btn-logout">Logout</button>
-                </form>
-            </div>
+                    <form action="/logout" method="POST">
+                        @csrf
+                        <button class="btn-logout">Logout</button>
+                    </form>
+                </div>
 
-            <div class="auth-image">
-                <img src="https://media1.tenor.com/m/j5AL-QaaihAAAAAC/anime-sagiri.gif" alt="Sagiri">
+                <div class="auth-image">
+                    <img src="https://media1.tenor.com/m/j5AL-QaaihAAAAAC/anime-sagiri.gif" alt="Sagiri">
+                </div>
             </div>
         </div>
     </div>
-    
-    @else
+@else
 
-    <div class="register-container">
-        <div class="form-box">
-            <h2>Register</h2>
+    <div class="page-wrapper">
+        <div class="auth-stack">
 
-            
+            <!-- REGISTER -->
+            <div class="register-container">
+                <div class="form-box">
+                    <h2>Register</h2>
 
-            <form method="POST" action="/register">
-                @csrf
-                <div class="form-group">
-                    <input type="text" name="username" placeholder="Full Name">
-                    </div>
+                    <form method="POST" action="/register">
+                        @csrf
+                        <div class="form-group">
+                            <input type="text" name="username" placeholder="Full Name">
+                        </div>
 
-                    <div class="form-group">
-                        <input type="email" name="email" placeholder="Email Address">
-                    </div>
+                        <div class="form-group">
+                            <input type="email" name="email" placeholder="Email Address">
+                        </div>
 
-                    <div class="form-group">
-                        <input type="password" name="password" placeholder="Password">
-                    </div>
+                        <div class="form-group">
+                            <input type="password" name="password" placeholder="Password">
+                        </div>
 
-                    <button class="btn-register">Create Account</button>
-                </form>
+                        <button class="btn-register">Create Account</button>
+                    </form>
+                </div>
+
+                <div class="image-box">
+                    <img src="https://media1.tenor.com/m/4tNhYHGifYYAAAAC/sagiri-eromanga-sensei.gif" alt="Sagiri Izumi">
+                </div>
             </div>
 
-            <div class="image-box">
-                <img src="https://media1.tenor.com/m/4tNhYHGifYYAAAAC/sagiri-eromanga-sensei.gif"
-                    alt="Sagiri Izumi">
+            <!-- LOGIN -->
+            <div class="register-container">
+                <div class="form-box">
+                    <h2>Login</h2>
+
+                    <form method="POST" action="/login">
+                        @csrf
+                        <div class="form-group">
+                            <input type="text" name="loginusername" placeholder="Full Name">
+                        </div>
+
+                        <div class="form-group">
+                            <input type="password" name="loginpassword" placeholder="Password">
+                        </div>
+
+                        <button class="btn-register">Login</button>
+                    </form>
+                </div>
+
+                <div class="image-box">
+                    <img src="https://media1.tenor.com/m/TeCjh8grXogAAAAC/eromanga-sensei-sigiri.gif" alt="Sagiri Izumi">
+                </div>
             </div>
+
         </div>
+    </div>
 
-    @endauth
-
-
+@endauth
 
 </body>
 </html>
