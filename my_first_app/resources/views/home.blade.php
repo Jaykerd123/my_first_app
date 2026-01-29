@@ -105,12 +105,108 @@
                 justify-content: center;
             }
         }
+        
+
+        /*  separate css */
+        .auth-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .auth-card {
+            display: flex;
+            gap: 2.5rem;
+            padding: 2.5rem;
+            max-width: 850px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(12px);
+            border-radius: 18px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            color: #fff;
+        }
+
+        .auth-text {
+            flex: 1;
+        }
+
+        .auth-text h2 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(90deg, #ff8acb, #9b8cff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .auth-text p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .btn-logout {
+            padding: 0.75rem 2.2rem;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #fff;
+            background: linear-gradient(90deg, #ff8acb, #9b8cff);
+            transition: 0.3s ease;
+        }
+
+        .btn-logout:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(155, 140, 255, 0.5);
+        }
+
+        .auth-image {
+            display: flex;
+            align-items: center;
+        }
+
+        .auth-image img {
+            width: 260px;
+            border-radius: 14px;
+            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .auth-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .auth-image {
+                justify-content: center;
+            }
+        }
+
     </style>
 </head>
 <body>
 
     @auth
-    <p>nigga u loged in</p>
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-text">
+                <h2>Welcome back ✨</h2>
+                <p>You are logged in &gt;_&lt;</p>
+
+                <form action="/logout" method="POST">
+                    @csrf
+                    <button class="btn-logout">Logout</button>
+                </form>
+            </div>
+
+            <div class="auth-image">
+                <img src="https://media1.tenor.com/m/j5AL-QaaihAAAAAC/anime-sagiri.gif" alt="Sagiri">
+            </div>
+        </div>
+    </div>
     
     @else
 

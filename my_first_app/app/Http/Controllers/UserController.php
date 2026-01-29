@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
@@ -12,9 +13,9 @@ class UserController extends Controller
     {
         $incomingData = $dataFromHome->validate(
             [
-                'username' => 'required|min:4|max:20',
-                'email' => 'required|email',
-                'password' => 'required|min:6|max:20'
+                'username' => 'required|min:4|max:20|unique:users,username',
+                'email' => 'required|email|unique:users,email',
+                'password' => 'required|min:6|max:20|confirmed',
             ]
 
 
@@ -29,5 +30,13 @@ class UserController extends Controller
         return redirect('/');
 
         return view('sagiri', compact('incomingData'));
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/');
     }
 }
