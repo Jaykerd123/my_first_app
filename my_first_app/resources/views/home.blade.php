@@ -109,35 +109,44 @@
 </head>
 <body>
 
-<div class="register-container">
-    <div class="form-box">
-        <h2>Register</h2>
+    @auth
+    <p>nigga u loged in</p>
+    
+    @else
 
-        
+    <div class="register-container">
+        <div class="form-box">
+            <h2>Register</h2>
 
-        <form method="POST" action="/register">
-            @csrf
-            <div class="form-group">
-                <input type="text" name="username" placeholder="Full Name">
+            
+
+            <form method="POST" action="/register">
+                @csrf
+                <div class="form-group">
+                    <input type="text" name="username" placeholder="Full Name">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="Email Address">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="password" name="password" placeholder="Password">
+                    </div>
+
+                    <button class="btn-register">Create Account</button>
+                </form>
             </div>
 
-            <div class="form-group">
-                <input type="email" name="email" placeholder="Email Address">
+            <div class="image-box">
+                <img src="https://media1.tenor.com/m/4tNhYHGifYYAAAAC/sagiri-eromanga-sensei.gif"
+                    alt="Sagiri Izumi">
             </div>
+        </div>
 
-            <div class="form-group">
-                <input type="password" name="password" placeholder="Password">
-            </div>
+    @endauth
 
-            <button class="btn-register">Create Account</button>
-        </form>
-    </div>
 
-    <div class="image-box">
-        <img src="https://media1.tenor.com/m/4tNhYHGifYYAAAAC/sagiri-eromanga-sensei.gif"
-             alt="Sagiri Izumi">
-    </div>
-</div>
 
 </body>
 </html>
