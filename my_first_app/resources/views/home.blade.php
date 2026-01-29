@@ -255,7 +255,7 @@
                     <form method="POST" action="/login">
                         @csrf
                         <div class="form-group">
-                            <input type="text" name="loginusername" placeholder="Full Name">
+                            <input type="email" name="loginemail" placeholder="Email Address">
                         </div>
 
                         <div class="form-group">
